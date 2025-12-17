@@ -19,18 +19,18 @@ import SwiftData
 // in the future include a streak feature
 
 @Model
-final class Goal {
+final class Goal: Hashable {
     var name: String
     var goalDescription: String?
     var timePeriod: String?
-    var endDate: Date?
+    var startDate: Date?
     var completed: Bool
     
-    init(name: String, goalDescription: String? = nil, timePeriod: String, endDate: Date? = nil, completed: Bool) {
+    init(name: String, goalDescription: String? = nil, timePeriod: String, startDate: Date? = nil, completed: Bool) {
         self.name = name
         self.goalDescription = goalDescription
         self.timePeriod = timePeriod
-        self.endDate = endDate
+        self.startDate = Date()
         self.completed = completed
     }
 }

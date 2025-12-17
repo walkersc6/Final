@@ -22,9 +22,14 @@ class GoalViewModel: ContextReferencing {
     
     // based off Project 2
     var goals: [Goal] {
-        let descriptor = FetchDescriptor<Goal>(sortBy:[SortDescriptor(\Goal.endDate)])
+        let descriptor = FetchDescriptor<Goal>(sortBy:[SortDescriptor(\Goal.startDate)])
         
         return (try? modelContext.fetch(descriptor)) ?? []
+    }
+    
+    func deleteGoal(_ goal: Goal) {
+        modelContext.delete(goal)
+        update()
     }
     
     func ensureSomeDataExists() {
@@ -32,6 +37,18 @@ class GoalViewModel: ContextReferencing {
             Goal.insertSampleData(modelContext: modelContext)
         }
     }
+    
+    func insertGoal(_ goal: Goal) {
+        modelContext.insert(goal)
+        update()
+    }
+    
+//    func saveGoal(_ goal: Goal, name: String, goalDescription: String, timePeriod: String, completed: Bool) {
+//            goal.name = name
+//            goal.goalDescription = goalDescription.isEmpty ? nil : goalDescription
+//            goal.timePeriod = timePeriod.isEmpty ? nil : timePeriod
+//            goal.completed = completed
+//    }
     
     func update() {
         do {

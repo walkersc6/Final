@@ -9,25 +9,33 @@ import SwiftUI
 
 struct GoalDetail: View {
     let goal: Goal
-    @Environment(GoalViewModel.self) private var goalViewModel
+//    @Environment(GoalViewModel.self) private var goalViewModel
     
     var body: some View {
-        VStack {
-            Text("\(goal.name)")
-                .font(.title2)
-            if let descript = goal.goalDescription, !descript.isEmpty {
-                Text("Description:")
-                Text("\(descript)")
+        List {
+            Section {
+                VStack(alignment: .center, spacing: 8) {
+                    Text("\(goal.name)")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    
+                    if let descript = goal.goalDescription, !descript.isEmpty {
+                        Text("\(descript)")
+                            .multilineTextAlignment(.center)
+                    }
+                }
             }
-            Spacer()
             
-            if let time = goal.timePeriod, !time.isEmpty {
-                Text("Time Period: \(time)")
+            Section {
+                if let time = goal.timePeriod, !time.isEmpty {
+                    Text("Time Period: \(time)")
+                }
+                if let startDate = goal.startDate {
+                    Text("End Date: \(startDate, style: .date)")
+                }
+                Text("Completed: \(goal.completed ? "Yes" : "No")")
             }
-            if let endDate = goal.endDate {
-                Text("End Date: \(endDate)")
-            }
-            Text("Completed: \(goal.completed ? "Yes" : "No")")
+            
         }
     }
 }
