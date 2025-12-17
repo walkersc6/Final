@@ -27,6 +27,6 @@ struct finalApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(for: [Goal.self])
     }
 }
